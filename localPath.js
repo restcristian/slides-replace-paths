@@ -1,10 +1,10 @@
 // LocalPath.js
 // Coded By: Cristian Restituyo
-// Takes 
+// Takes a html file  and replaces all absolute images paths for relative ones.
 var fs = require('fs');
 var readline = require('readline');
 
-var PATTERN = /https?:\/{2}s3.amazonaws.com\/media-p.slid\.es\/uploads\/\d{1,}\/images\/\d{1,}\//g;
+var PATTERN = /https?:\/{2}s3.amazonaws.com\/media-p\.slid\.es\/uploads\/\d{1,}\/images\/\d{1,}\/https?:\/{2}s3.amazonaws.com\/media-p\.slid\.es\/uploads\/\d{1,}\/images\/\d{1,}\//g;
 var FILE_PATH = '';
 var no_empty_name = false;
 
