@@ -1,32 +1,38 @@
-const fs = require('fs');
-const readline = require('readline');
+// LocalPath.js
+// Coded By: Cristian Restituyo
+// Takes 
+var fs = require('fs');
+var readline = require('readline');
 
-const PATTERN = /https?:\/{2}s3.amazonaws.com\/media-p.slid\.es\/uploads\/\d{1,}\/images\/\d{1,}\//g;
-let FILE_PATH = '';
-let no_empty_name = false;
+var PATTERN = /https?:\/{2}s3.amazonaws.com\/media-p.slid\.es\/uploads\/\d{1,}\/images\/\d{1,}\//g;
+var FILE_PATH = '';
+var no_empty_name = false;
 
-const IMAGES_PATH = './images/';
-const OUTPUT_FILE_PATH = 'index.html';
+var EXTENSION = 'html';
+var IMAGES_PATH = './images/';
+var OUTPUT_FILE_PATH = 'index';
 
-const rl = readline.createInterface({
+var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-const workWithFile = () => {
-    fs.readFile(FILE_PATH, (err, data) => {
+function workWithFile() {
+    fs.readFile(FILE_PATH + '.' + EXTENSION, function (err, data) {
         var oldData = data.toString();
         var newData = oldData.replace(PATTERN, IMAGES_PATH);
-        console.log(`Creating New File from ${FILE_PATH}`);
-        fs.open(OUTPUT_FILE_PATH, 'w+', (err, file) => {
-            fs.writeFile(OUTPUT_FILE_PATH, newData, err => {
-                console.log(`New File Created at ${OUTPUT_FILE_PATH}`);
+        console.log('Creating new file from ' + FILE_PATH + '.' + EXTENSION + '...');
+        fs.open(OUTPUT_FILE_PATH + '.' + EXTENSION, 'w+', function (err, file) {
+            fs.writeFile(OUTPUT_FILE_PATH + '.' + EXTENSION, newData, function (err) {
+                console.log('New file created at ' + OUTPUT_FILE_PATH + '.' + EXTENSION);
             });
         });
     });
 }
-
-rl.question('Insert name of the file you wish to transform:', (answer) => {
+console.log('/***************************************************/');
+console.log('/***********Slides Path Localizer*******************/');
+console.log('/****************************************************/');
+rl.question('Insert name of the file you wish to transform:', function(answer) {
     FILE_PATH = answer.toString();
     workWithFile();
 });
